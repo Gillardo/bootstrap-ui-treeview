@@ -2,8 +2,6 @@
 
 AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation
 
-[Demo](http://plnkr.co/edit/S8UqwvXNGmDcPXV7a0N3?p=preview)
-
 ## Installation
 To use the directive you must have the following angular-ui bootstrap directives included already
 * Collapse
@@ -66,7 +64,7 @@ $scope.myData = [
 <div tree-view="myData" node-label="name" item-ng-include="my/url/to/a/template.html"></div>
 ```
 
-####RESULT
+And you end up with a treeview like so
 
 ![alt tag](http://imageshack.com/a/img909/2623/gn5r3S.gif)
 
