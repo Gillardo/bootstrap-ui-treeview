@@ -1,0 +1,31 @@
+{
+  "name": "bootstrap-ui-treeview",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Gillardo/bootstrap-ui-treeview",
+  "authors": [
+    "Gillardo <darren.gillard81@gmail.com>"
+  ],
+  "description": "AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation, also includes a TreeViewService to access the treeview from another controller/directive/service",
+  "main": [
+    "dist/tree-view.min.js"
+  ],
+  "keywords": [
+    "tree-view",
+    "angular",
+    "bootstrap",
+    "angular-ui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "template",
+    "/tree-view-directive.js",
+    "/tree-view-service.js",
+    "gruntfile.js",
+    "package.json",
+    "tests"
+  ]
+}

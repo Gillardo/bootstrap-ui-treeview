@@ -4,6 +4,8 @@ angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function 
     factory.selectedNode = null;
 
     factory.unselectNode = function () {
+        if (factory.selectedNode) factory.selectedNode.selected = undefined;
+
         factory.selectedNode = null;
     };
 
@@ -16,6 +18,10 @@ angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function 
     };
 
     factory.toggleNode = function (node) {
+        // no node selected
+        if (!node) return;
+
+        // no children
         if (!node.children) return;
 
         // collapse / expand
@@ -25,13 +31,16 @@ angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function 
     };
 
     factory.toggleAll = function (node) {
+        // no node selected
+        if (!node) return;
+
         // set all children equal to what the parent will be, 
         // else can get out of sync
         var collapsed = !node.collapsed;
 
         var iterate = function (child) {
             if (!child.children) {
-                return;
+                return null;
             } else {
                 child.collapsed = collapsed;
 
@@ -39,7 +48,7 @@ angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function 
                     iterate(child.children[i]);
                 }
             }
-        }
+        };
 
         if (node) {
             iterate(node);
@@ -95,7 +104,7 @@ angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'Tree
 
             var compiledHtml = $compile(template)(scope);
 
-            elem.html(compiledHtml);
+            elem.append(compiledHtml);
         }
     };
 }]);

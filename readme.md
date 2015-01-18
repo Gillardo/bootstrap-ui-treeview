@@ -2,6 +2,8 @@
 
 AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation
 
+[Demo](http://plnkr.co/edit/nHEQYsw7aDQ6N1wxMGay?p=preview)
+
 ## Installation
 To use the directive you must have the following angular-ui bootstrap directives included already
 * Collapse
@@ -24,6 +26,21 @@ The name of the property that you want to display for each item
 A string if you want to include an include for each repeated item. Each item is referenced as a node and you can reference any property within that node
 
 Each item must have a children property, this is what will contain a further list of more items.
+
+#### Service
+There is a tree-view service included as well, so you can access the tree-view from another controller/directive/service.  On the service there are the following methods
+
+##### unselectNode()
+Call this function to unselect a selected node
+
+##### selectNode(node)
+Pass in a node from the tree-view to select it.  This method is called via the directive to select the node upon clicking on it
+
+##### toogleNode(node)
+When called, the node passed in be toggled between being expanded or closed state
+
+##### toggleAll(node)
+The node and all its children will change to either expanded or closed state.
 
 ## Example
 Here is an example to use the directive with a bootstrap input, displaying a calendar button

@@ -4,6 +4,8 @@
     factory.selectedNode = null;
 
     factory.unselectNode = function () {
+        if (factory.selectedNode) factory.selectedNode.selected = undefined;
+
         factory.selectedNode = null;
     };
 
@@ -16,6 +18,10 @@
     };
 
     factory.toggleNode = function (node) {
+        // no node selected
+        if (!node) return;
+
+        // no children
         if (!node.children) return;
 
         // collapse / expand
@@ -25,13 +31,16 @@
     };
 
     factory.toggleAll = function (node) {
+        // no node selected
+        if (!node) return;
+
         // set all children equal to what the parent will be, 
         // else can get out of sync
         var collapsed = !node.collapsed;
 
         var iterate = function (child) {
             if (!child.children) {
-                return;
+                return null;
             } else {
                 child.collapsed = collapsed;
 
@@ -39,7 +48,7 @@
                     iterate(child.children[i]);
                 }
             }
-        }
+        };
 
         if (node) {
             iterate(node);

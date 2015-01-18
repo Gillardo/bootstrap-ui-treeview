@@ -44,7 +44,7 @@
 
             var compiledHtml = $compile(template)(scope);
 
-            elem.html(compiledHtml);
+            elem.append(compiledHtml);
         }
     };
 }]);
