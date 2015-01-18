@@ -20,7 +20,7 @@ Or use bower
 bower install ui-bootstrap-treeview -S
 ```
 
-and link with ```sd bower_components/ui-bootstrap-treeview/dist/treeview.min.js ```
+and link with ``` bower_components/ui-bootstrap-treeview/dist/treeview.min.js ```
 
 
 ## Usage
