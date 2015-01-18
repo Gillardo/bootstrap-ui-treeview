@@ -14,6 +14,15 @@ angular.module('app', ['ui.bootstrap', 'ui.bootstrap.treeview']);
 ```
 Download the source from dist/tree-view.min.js file and include it in your project.
 
+Or use bower
+
+```
+bower install ui-bootstrap-treeview -S
+```
+
+and link with ```sd bower_components/ui-bootstrap-treeview/dist/treeview.min.js ```
+
+
 ## Usage
 You have the following properties available to use with the directive.  All are optional unless stated otherwise
 * treeView (required) - Your object that contains items
