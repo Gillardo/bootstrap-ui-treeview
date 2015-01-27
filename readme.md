@@ -17,10 +17,10 @@ Download the source from dist/tree-view.min.js file and include it in your proje
 Or use bower
 
 ```
-bower install ui-bootstrap-treeview -S
+bower install bootstrap-ui-treeview -S
 ```
 
-and link with ``` bower_components/ui-bootstrap-treeview/dist/treeview.min.js ```
+and link with ``` bower_components/bootstrap-ui-treeview/dist/treeview.min.js ```
 
 
 ## Usage
