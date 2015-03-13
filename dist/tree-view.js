@@ -1,3 +1,6 @@
+// https://github.com/Gillardo/bootstrap-ui-treeview
+// Version: 1.0.0
+// Released: 2015-03-13 
 angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function () {
     var factory = {};
 
