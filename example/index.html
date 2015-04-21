@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="MyController">
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="ui-bootstrap.tpls.js"></script>
+    <script src="treeview.js"></script>
+    <script src="script.js"></script>
+</head>
+<body style="padding:10px;" class="container-fluid">
+<h1>Treeview Demo</h1>
+<hr />
+<p>
+    Use buttons to interact with treeview<br />
+    <a class="btn btn-default" ng-click="toggleAll()">Toggle All in Second</a>
+    <a class="btn btn-default" ng-click="toggle()">Toggle Selected</a>
+    <a class="btn btn-default" ng-click="select()">Select First</a>
+    <a class="btn btn-default" ng-click="unselect()">Unselect Selected</a>
+</p>
+<br />
+<p>Selected node<br />
+    {{ selectedNode }}</p><br />
+
+<script type="text/ng-template" id="my/url/to/a/template.html">
+    <div class="pull-right" style="background:yellow;color:red;padding:5px">{{ node.name }}</div>
+</script>
+
+<div tree-view="myData" node-label="name" item-ng-include="my/url/to/a/template.html"></div>
+</body>
+
+</html>

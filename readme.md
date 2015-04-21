@@ -2,7 +2,7 @@
 
 AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation
 
-[Demo](http://plnkr.co/edit/nHEQYsw7aDQ6N1wxMGay?p=preview)
+[Demo](http://plnkr.co/edit/n3KejGp2eAGc1S4VKoAK?p=preview)
 
 ## Installation
 To use the directive you must have the following angular-ui bootstrap directives included already
