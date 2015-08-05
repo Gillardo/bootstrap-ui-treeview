@@ -27,12 +27,15 @@ and link with ``` bower_components/bootstrap-ui-treeview/dist/treeview.min.js ``
 You have the following properties available to use with the directive.  All are optional unless stated otherwise
 * treeView (required) - Your object that contains items
 * nodeLabel - (string)
+* itemClass - (string)
 * itemNgInclude (string)
  
 ##### nodeLabel
 The name of the property that you want to display for each item
 ##### itemNgInclude
 A string if you want to include an include for each repeated item. Each item is referenced as a node and you can reference any property within that node
+##### itemClass
+A string if you want to apply a css class to each item. This is needed to format items better if you use pull-right in your itemNgInclude template, you can then use pull-left on the item
 
 Each item must have a children property, this is what will contain a further list of more items.
 
