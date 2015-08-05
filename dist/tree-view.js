@@ -1,6 +1,6 @@
 // https://github.com/Gillardo/bootstrap-ui-treeview
-// Version: 1.0.1
-// Released: 2015-05-27 
+// Version: 1.0.2
+// Released: 2015-08-05 
 angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function () {
     var factory = {};
 
@@ -123,6 +123,7 @@ angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'Tree
             var model = attrs.treeView;
             var isRoot = (!attrs.treeRoot ? true : false);
             var nodeLabel = attrs.nodeLabel || 'label';
+            var itemClass = attrs.itemClass || '';
             var itemInclude = attrs.itemNgInclude || '';
             var itemIncludeHtml = '';
 
@@ -135,7 +136,7 @@ angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'Tree
                 '<ul class="tree-view">' +
                 '<li ng-repeat="node in ' + model + '">' +
                 '<div>' +
-                '<div>' +
+                '<div ' + (itemClass != '' ? 'class="' + itemClass + '"' : '') + '>' +
                 '<i ng-click="toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
                 '<i ng-click="toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
                 '<span ng-click="selectNode(node)" ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node.selected}"></span>' +

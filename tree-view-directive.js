@@ -5,6 +5,7 @@
             var model = attrs.treeView;
             var isRoot = (!attrs.treeRoot ? true : false);
             var nodeLabel = attrs.nodeLabel || 'label';
+            var itemClass = attrs.itemClass || '';
             var itemInclude = attrs.itemNgInclude || '';
             var itemIncludeHtml = '';
 
@@ -17,7 +18,7 @@
                 '<ul class="tree-view">' +
                 '<li ng-repeat="node in ' + model + '">' +
                 '<div>' +
-                '<div>' +
+                '<div ' + (itemClass != '' ? 'class="' + itemClass + '"' : '') + '>' +
                 '<i ng-click="toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
                 '<i ng-click="toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
                 '<span ng-click="selectNode(node)" ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node.selected}"></span>' +
