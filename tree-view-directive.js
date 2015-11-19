@@ -49,7 +49,7 @@
                             '</div>' +
                             itemIncludeHtml +
                         '</div>' +
-                        '<tree-view collapse="!node.collapsed" ng-model="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
+                        '<tree-view uib-collapse="!node.collapsed" ng-model="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
                     '</li>' +
                 '</ul>';
 
