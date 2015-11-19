@@ -60,7 +60,7 @@ In order for you to add styles to the tree-view, each tree-view is created with 
 If you would like to use a bootstrap dropdown (or another element that uses collapse class) within an item-ng-include template, the dropdown will be cut off when you are on the last element of the tree-view.  To get round this you need to apply the following css class rule (thanks jziolkow)
 
 ```sh
-.tree-view.collapse.in {
+tree-view.collapsing.in {
     overflow: visible;
 }
 ```
@@ -102,7 +102,7 @@ $scope.myData = [
 <script type="text/ng-template" id="my/url/to/a/template.html">
     <div class="pull-right" style="background:yellow;color:red;padding:5px">{{ node.name }}</div>
 </script>
-<div tree-view="myData" node-label="name" item-ng-include="my/url/to/a/template.html"></div>
+<tree-view="myData" node-label="name" item-class="pull-left" item-ng-include="my/url/to/a/template.html"></tree-view>
 ```
 
 And you end up with a treeview like so
