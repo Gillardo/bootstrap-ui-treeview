@@ -2,12 +2,12 @@
     var factory = {};
 
     factory.treeView = [];
-    factory._restoreNode = null;
+    factory._restoreNode = undefined;
 
-    factory.selectedNode = null;
+    factory.selectedNode = undefined;
 
     factory.unselectNode = function () {
-        factory.selectedNode = null;
+        factory.selectedNode = undefined;
     };
 
     factory.selectNode = function (node) {

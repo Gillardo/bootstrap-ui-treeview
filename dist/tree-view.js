@@ -1,16 +1,16 @@
 // https://github.com/Gillardo/bootstrap-ui-treeview
-// Version: 1.0.2
-// Released: 2015-08-05 
+// Version: 2.0.0
+// Released: 2015-11-19 
 angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function () {
     var factory = {};
 
     factory.treeView = [];
-    factory._restoreNode = null;
+    factory._restoreNode = undefined;
 
-    factory.selectedNode = null;
+    factory.selectedNode = undefined;
 
     factory.unselectNode = function () {
-        factory.selectedNode = null;
+        factory.selectedNode = undefined;
     };
 
     factory.selectNode = function (node) {
@@ -116,11 +116,29 @@ angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function 
 
     return factory;
 });
-angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'TreeViewService', function ($compile, TreeViewService) {
+angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'TreeViewService', '$templateCache', function ($compile, TreeViewService, $templateCache) {
     return {
-        restrict: 'A',
-        link: function (scope, elem, attrs) {
-            var model = attrs.treeView;
+        restrict: 'E',
+        scope: {},
+        bindToController: {
+            ngModel: '='
+        },
+        controller: function() {
+            // toggle when icon clicked
+            this.toggleNode = function (node) {
+                TreeViewService.toggleNode(node);
+            };
+
+            // select when name clicked
+            this.selectNode = function (e, node) {
+                TreeViewService.selectNode(node);
+
+                e.stopPropagation();
+                e.preventDefault();
+            };
+        },
+        controllerAs: 'ctrl',
+        link: function (scope, element, attrs, ctrl) {
             var isRoot = (!attrs.treeRoot ? true : false);
             var nodeLabel = attrs.nodeLabel || 'label';
             var itemClass = attrs.itemClass || '';
@@ -128,48 +146,40 @@ angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'Tree
             var itemIncludeHtml = '';
 
             if (itemInclude && itemInclude.length > 0) {
-                itemIncludeHtml = '<div ng-include="\'' + attrs.itemNgInclude + '\'"></div>'
+                itemIncludeHtml = $templateCache.get(attrs.itemNgInclude);
             }
+
+            // remove attributes
+            element.removeAttr('node-label');
+            element.removeAttr('item-class');
+            element.removeAttr('item-ng-include');
+            element.removeAttr('tree-root');
 
             // template
             var template =
-                '<ul class="tree-view">' +
-                '<li ng-repeat="node in ' + model + '">' +
-                '<div>' +
-                '<div ' + (itemClass != '' ? 'class="' + itemClass + '"' : '') + '>' +
-                '<i ng-click="toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
-                '<i ng-click="toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
-                '<span ng-click="selectNode(node)" ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node.selected}"></span>' +
-                '</div>' +
-                itemIncludeHtml +
-                '</div>' +
-                '<div class="tree-view" collapse="!node.collapsed" tree-view="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" ></div>' +
-                '</li>' +
+                '<ul>' +
+                    '<li ng-repeat="node in ctrl.ngModel">' +
+                        '<div class="node">' +
+                            '<div' + (itemClass != '' ? ' class="' + itemClass + '"': '') + '>' +
+                                '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
+                                '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
+                                '<span ng-click="ctrl.selectNode($event, node)" ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node.selected}"></span>' +
+                            '</div>' +
+                            itemIncludeHtml +
+                        '</div>' +
+                        '<tree-view collapse="!node.collapsed" ng-model="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
+                    '</li>' +
                 '</ul>';
 
-            // root node
+            // if root node
             if (isRoot) {
-
                 // store our list
-                TreeViewService.treeView = scope.$eval(attrs.treeView);
-
-                // restore to previously opened node, if one
-                TreeViewService.restore();
-
-                // toggle when icon clicked
-                scope.toggleNode = function (node) {
-                    TreeViewService.toggleNode(node);
-                };
-
-                // select when name clicked
-                scope.selectNode = function (node) {
-                    TreeViewService.selectNode(node);
-                };
+                TreeViewService.treeView = ctrl.ngModel;
             }
 
             var compiledHtml = $compile(template)(scope);
 
-            elem.append(compiledHtml);
+            element.append(compiledHtml);
         }
     };
 }]);

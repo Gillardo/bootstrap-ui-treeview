@@ -1,0 +1,68 @@
+tree-view {
+  display: block;
+
+  .collapsing.in {
+    overflow: visible;
+  }
+
+  ul {
+    padding-left: 0;
+
+    li {
+      display: block;
+
+      .node:before, .node:after {
+        display: table;
+        content: " ";
+      }
+
+      .node:after {
+        clear:both;
+      }
+
+      .node {
+
+        margin-left: -15px;
+        margin-right: -15px;
+        margin: 0;
+        padding: 8px 0;
+        border-bottom: 1px solid #e4eaec;
+
+        div:first-child {
+          i.no-child, i.has-child, i.has-child-open {
+            display: inline-block;
+            font: normal normal normal 14px / 1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin-right: 0.3475rem;
+            margin-right: 0.3475rem;
+          }
+
+          i.no-child:before, i.has-child:before {
+            content: "";
+          }
+
+          i.has-child-open:before {
+            content: "";
+          }
+
+          span {
+            padding: .1475rem;
+          }
+
+          span.selected {
+            background: lightgrey;
+          }
+        }
+
+      }
+    }
+  }
+
+  // children
+  tree-view {
+    padding-left: 1.3475rem;
+  }
+}

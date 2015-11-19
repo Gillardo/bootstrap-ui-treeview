@@ -1,95 +1,64 @@
-.tree-view {
-    padding-left: 0;
-}
-.tree-view > li {
+@charset "UTF-8";
+tree-view {
     display: block;
 }
-.tree-view > li > div:first-child {
+
+tree-view .collapsing.in {
+    overflow: visible;
+}
+
+tree-view ul {
+    padding-left: 0;
+}
+
+tree-view ul li {
+    display: block;
+}
+
+tree-view ul li .node:before, tree-view ul li .node:after {
+    display: table;
+    content: " ";
+}
+
+tree-view ul li .node:after {
+    clear: both;
+}
+
+tree-view ul li .node {
     margin-left: -15px;
     margin-right: -15px;
     margin: 0;
     padding: 8px 0;
     border-bottom: 1px solid #e4eaec;
 }
-.tree-view > li > div:first-child:before,
-.tree-view > li > div:first-child:after {
-    content: " ";
-    display: table;
-}
-.tree-view > li > div:first-child:after {
-    clear: both;
-}
-.tree-view > li > div:first-child:before,
-.tree-view > li > div:first-child:after {
-    content: " ";
-    display: table;
-}
-.tree-view > li > div:first-child:after {
-    clear: both;
-}
-.tree-view > li > div:first-child > div:first-child {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-@media (min-width: 368px) {
-    .tree-view > li > div:first-child > div:first-child {
-        float: left;
-        width: 66.66666667%;
-    }
-}
-.tree-view > li > div:first-child > div:first-child > i {
-    margin-right: 5px;
-}
-.tree-view > li > div:first-child > div:first-child > i.no-child {
+
+tree-view ul li .node div:first-child i.no-child, tree-view ul li .node div:first-child i.has-child, tree-view ul li .node div:first-child i.has-child-open {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin-right: 0.3475rem;
+    margin-right: 0.3475rem;
 }
-.tree-view > li > div:first-child > div:first-child > i.no-child:before {
-    content: "\f016";
+
+tree-view ul li .node div:first-child i.no-child:before, tree-view ul li .node div:first-child i.has-child:before {
+    content: "";
 }
-.tree-view > li > div:first-child > div:first-child > i.has-child {
-    cursor: pointer;
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+
+tree-view ul li .node div:first-child i.has-child-open:before {
+    content: "";
 }
-.tree-view > li > div:first-child > div:first-child > i.has-child:before {
-    content: "\f054";
+
+tree-view ul li .node div:first-child span {
+    padding: .1475rem;
 }
-.tree-view > li > div:first-child > div:first-child > i.has-child-open {
-    cursor: pointer;
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+
+tree-view ul li .node div:first-child span.selected {
+    background: lightgrey;
 }
-.tree-view > li > div:first-child > div:first-child > i.has-child-open:before {
-    content: "\f078";
-}
-.tree-view > li > div:first-child > div:first-child > span {
-    padding: 5px;
-    cursor: pointer;
-}
-.tree-view > li > div:first-child > div:first-child > span.selected {
-    background: #dde6e9;
-}
-.tree-view > li > div:first-child > div:nth-child(2) {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.tree-view > li > .tree-view {
-    padding-left: 15px;
+
+tree-view tree-view {
+    padding-left: 1.3475rem;
 }
