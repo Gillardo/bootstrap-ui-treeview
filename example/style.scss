@@ -20,6 +20,14 @@ tree-view {
         clear:both;
       }
 
+      .node:hover {
+        background: #D8ECF6;
+      }
+
+      .node.selected {
+        background: #D8ECF6;
+      }
+
       .node {
 
         margin-left: -15px;
@@ -50,10 +58,10 @@ tree-view {
 
           span {
             padding: .1475rem;
-          }
 
-          span.selected {
-            background: lightgrey;
+            .selected {
+              background: #D8ECF6;
+            }
           }
         }
 
