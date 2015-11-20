@@ -41,7 +41,7 @@
             var template =
                 '<ul>' +
                     '<li ng-repeat="node in ctrl.ngModel">' +
-                        '<div class="node">' +
+                        '<div class="node" ng-class="{\'selected\' : node.selected}">' +
                             '<div' + (itemClass != '' ? ' class="' + itemClass + '"': '') + '>' +
                                 '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
                                 '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
