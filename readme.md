@@ -1,6 +1,6 @@
 # Bootstrap-UI/treeview
 
-AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation
+AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation.  This treeView has now been updated to NOT change the data in the treeView.  Some other tree view directives add different properties to the data to show the expanded/selected nodes, but this treeview will leave your data alone and uses a service to determine when a node is collapsed/selected.
 
 [Demo](http://plnkr.co/edit/n3KejGp2eAGc1S4VKoAK?p=preview)
 
@@ -25,7 +25,7 @@ and link with ``` bower_components/bootstrap-ui-treeview/dist/treeview.min.js ``
 
 ## Usage
 You have the following properties available to use with the directive.  All are optional unless stated otherwise
-* treeView (required) - Your object that contains items
+* treeService (required) - Your treeService which contains the data to display
 * nodeLabel - (string)
 * itemClass - (string)
 * itemNgInclude (string)
@@ -40,19 +40,17 @@ A string if you want to apply a css class to each item. This is needed to format
 Each item must have a children property, this is what will contain a further list of more items.
 
 #### Service
-There is a tree-view service included as well, so you can access the tree-view from another controller/directive/service.  On the service there are the following methods
+The treeService has been redeveloped so that none of the treeView data is actually changed. Previously a selected and collapsed property would be added to each node of data, this is now not the case.
+The service has the following properties available.
 
-##### unselectNode()
-Call this function to unselect a selected node
+#### nodes
+The data that you want to display in the treeView.  This is now required.
 
-##### selectNode(node)
-Pass in a node from the tree-view to select it.  This method is called via the directive to select the node upon clicking on it
+#### selectedNode
+The node that is currently selected
 
-##### toogleNode(node)
-When called, the node passed in be toggled between being expanded or closed state
-
-##### toggleAll(node)
-The node and all its children will change to either expanded or closed state.
+#### collapsed
+This is an array of all the nodes that are current collapsed
 
 ## Css
 In order for you to add styles to the tree-view, each tree-view is created with a className of tree-view.  You can override any styling you want, by creating your own css.
@@ -67,34 +65,38 @@ tree-view.collapsing.in {
 
 
 ## Example
-Here is an example to use the directive with a bootstrap input, displaying a calendar button
+Here is an example to use the directive
 
-####DATA
+####DATA - CONTROLLER
 ```sh
-$scope.myData = [
-    {
-        id: 1,
-        name: 'first',
-        children: []
-    },
-    {
-        id: 2,
-        name: 'second',
-        children: [
-            {
-                id: 10,
-                name: 'child of second',
-                children: [
-                    {
-                        id: 20,
-                        name: 'grand child',
-                        children: []
-                    }
-                ]
-            }
-        ]
-    }
-];
+app.controller('MyController', ['TreeViewService', function(TreeViewService) {
+    this.myService = new TreeViewService;
+    
+    myService.nodes = [
+        {
+            id: 1,
+            name: 'first',
+            children: []
+        },
+        {
+            id: 2,
+            name: 'second',
+            children: [
+                {
+                    id: 10,
+                    name: 'child of second',
+                    children: [
+                        {
+                            id: 20,
+                            name: 'grand child',
+                            children: []
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+});
 ```
 
 ####HTML
@@ -102,7 +104,7 @@ $scope.myData = [
 <script type="text/ng-template" id="my/url/to/a/template.html">
     <div class="pull-right" style="background:yellow;color:red;padding:5px">{{ node.name }}</div>
 </script>
-<tree-view="myData" node-label="name" item-class="pull-left" item-ng-include="my/url/to/a/template.html"></tree-view>
+<tree-view tree-service="ctrl.myService" node-label="name" item-class="pull-left" item-ng-include="my/url/to/a/template.html"></tree-view>
 ```
 
 And you end up with a treeview like so

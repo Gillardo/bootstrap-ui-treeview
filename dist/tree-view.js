@@ -1,137 +1,54 @@
 // https://github.com/Gillardo/bootstrap-ui-treeview
-// Version: 2.0.1
-// Released: 2015-11-20 
+// Version: 3.0.0
+// Released: 2015-12-29 
 angular.module('ui.bootstrap.treeview', []).factory('TreeViewService', function () {
-    var factory = {};
+    function TreeViewService() {
+        var that = this;
 
-    factory.treeView = [];
-    factory._restoreNode = undefined;
+        this.nodes = [];
+        this.selectedNode = undefined;
+        this.collapsed = [];
 
-    factory.selectedNode = undefined;
+    }
 
-    factory.unselectNode = function () {
-        factory.selectedNode = undefined;
-    };
-
-    factory.selectNode = function (node) {
-        if (factory.selectedNode) factory.selectedNode.selected = undefined;
-
-        factory.selectedNode = node;
-
-        node.selected = true;
-    };
-
-    factory.toggleNode = function (node) {
-        if (!node.children) return;
-
-        // collapse / expand
-        if (node.children && node.children.length > 0) {
-            node.collapsed = !node.collapsed;
-        }
-    };
-
-    factory.hasChild = function (list, id) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].id == id) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    factory.restoreToNode = function (node) {
-        factory._restoreNode = node;
-    };
-
-    factory.restore = function () {
-        if (!factory._restoreNode) return;
-
-        var id = factory._restoreNode.id;
-
-        var hasRestoreNode = function (node) {
-            if (node.id == id) {
-
-                // set node as selected
-                node.selected = true;
-
-                // save node to service
-                factory.selectedNode = node;
-
-                return true;
-            } else {
-                if (!node.children) return;
-
-                for (var i = 0; i < node.children.length; i++) {
-                    if (hasRestoreNode(node.children[i])) {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        };
-
-        var collapse = function (node) {
-            if (hasRestoreNode(node)) {
-                node.collapsed = true;
-
-                if (!node.children) return;
-
-                for (var i = 0; i < node.children.length; i++) {
-                    collapse(node.children[i]);
-                }
-            } else {
-                node.collapsed = false;
-            }
-        };
-
-        // check if this node contains the child id
-        for (var i = 0; i < factory.treeView.length; i++) {
-            collapse(factory.treeView[i]);
-        }
-    };
-
-    factory.toggleAll = function (node) {
-        // set all children equal to what the parent will be, 
-        // else can get out of sync
-        var collapsed = !node.collapsed;
-
-        var iterate = function (child) {
-            if (!child.children) {
-                return;
-            } else {
-                child.collapsed = collapsed;
-
-                for (var i = 0; i < child.children.length; i++) {
-                    iterate(child.children[i]);
-                }
-            }
-        };
-
-        if (node) {
-            iterate(node);
-        }
-
-    };
-
-    return factory;
+    return TreeViewService;
 });
-angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'TreeViewService', '$templateCache', function ($compile, TreeViewService, $templateCache) {
+
+angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', '$templateCache', function ($compile, $templateCache) {
     return {
         restrict: 'E',
         scope: {},
         bindToController: {
-            ngModel: '='
+            treeService: '='
         },
-        controller: function() {
+        controller: function () {
+
+            var that = this;
+
+            this.isCollapsed = function(node) {
+                return that.treeService.collapsed.indexOf(node) > -1;
+            };
+
             // toggle when icon clicked
             this.toggleNode = function (node) {
-                TreeViewService.toggleNode(node);
+
+                if (!node.children) return;
+
+                // collapse / expand
+                if (node.children && node.children.length > 0) {
+                    // add the node to our collapsed array
+                    var index = that.treeService.collapsed.indexOf(node);
+
+                    if (index == -1)
+                        that.treeService.collapsed.push(node);
+                    else
+                        that.treeService.collapsed.splice(index, 1);
+                }
             };
 
             // select when name clicked
             this.selectNode = function (e, node) {
-                TreeViewService.selectNode(node);
+                that.treeService.selectedNode = node;
 
                 e.stopPropagation();
                 e.preventDefault();
@@ -158,23 +75,23 @@ angular.module('ui.bootstrap.treeview').directive('treeView', ['$compile', 'Tree
             // template
             var template =
                 '<ul>' +
-                    '<li ng-repeat="node in ctrl.ngModel">' +
-                        '<div class="node" ng-class="{\'selected\' : node.selected}">' +
-                            '<div' + (itemClass != '' ? ' class="' + itemClass + '"': '') + '>' +
-                                '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!node.collapsed ? \'has-child\' : \'has-child-open\'"></i>' +
-                                '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
-                                '<span ng-click="ctrl.selectNode($event, node)" ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node.selected}"></span>' +
-                            '</div>' +
-                            itemIncludeHtml +
-                        '</div>' +
-                        '<tree-view uib-collapse="!node.collapsed" ng-model="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
-                    '</li>' +
+                '<li ng-repeat="node in [REPLACENODES]">' +
+                '<div class="node" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}">' +
+                '<div ng-click="ctrl.selectNode($event, node)" ' + (itemClass != '' ? ' class="' + itemClass + '"' : '') + '>' +
+                '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!ctrl.isCollapsed(node) ? \'has-child\' : \'has-child-open\'"></i>' +
+                '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
+                '<span ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}"></span>' +
+                '</div>' +
+                itemIncludeHtml +
+                '</div>' +
+                '<tree-view uib-collapse="!ctrl.isCollapsed(node)" tree-service="ctrl.treeService" node-children="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
+                '</li>' +
                 '</ul>';
 
-            // if root node
-            if (isRoot) {
-                // store our list
-                TreeViewService.treeView = ctrl.ngModel;
+            if (!isRoot) {
+                template = template.replace('[REPLACENODES]', '$parent.node.children');
+            } else {
+                template = template.replace('[REPLACENODES]', 'ctrl.treeService.nodes');
             }
 
             var compiledHtml = $compile(template)(scope);
