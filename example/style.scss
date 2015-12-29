@@ -30,30 +30,30 @@ tree-view {
 
       .node {
 
+        cursor: pointer;
         margin-left: -15px;
         margin-right: -15px;
         margin: 0;
-        padding: 8px 0;
+        padding: .3745rem;
         border-bottom: 1px solid #e4eaec;
 
         div:first-child {
+
           i.no-child, i.has-child, i.has-child-open {
-            display: inline-block;
-            font: normal normal normal 14px / 1 FontAwesome;
-            font-size: inherit;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            margin-right: 0.3475rem;
+            @include fa-icon();
             margin-right: 0.3475rem;
           }
 
-          i.no-child:before, i.has-child:before {
-            content: "";
+          i.no-child:before {
+            content: "\f114";
+          }
+
+          i.has-child:before {
+            content: "\f07b";
           }
 
           i.has-child-open:before {
-            content: "";
+            content: "\f07c";
           }
 
           span {

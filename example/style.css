@@ -1,4 +1,3 @@
-@charset "UTF-8";
 tree-view {
     display: block;
 }
@@ -24,11 +23,20 @@ tree-view ul li .node:after {
     clear: both;
 }
 
+tree-view ul li .node:hover {
+    background: #D8ECF6;
+}
+
+tree-view ul li .node.selected {
+    background: #D8ECF6;
+}
+
 tree-view ul li .node {
+    cursor: pointer;
     margin-left: -15px;
     margin-right: -15px;
     margin: 0;
-    padding: 8px 0;
+    padding: .3745rem;
     border-bottom: 1px solid #e4eaec;
 }
 
@@ -40,23 +48,26 @@ tree-view ul li .node div:first-child i.no-child, tree-view ul li .node div:firs
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin-right: 0.3475rem;
-    margin-right: 0.3475rem;
 }
 
-tree-view ul li .node div:first-child i.no-child:before, tree-view ul li .node div:first-child i.has-child:before {
-    content: "";
+tree-view ul li .node div:first-child i.no-child:before {
+    content: "\f114";
+}
+
+tree-view ul li .node div:first-child i.has-child:before {
+    content: "\f07b";
 }
 
 tree-view ul li .node div:first-child i.has-child-open:before {
-    content: "";
+    content: "\f07c";
 }
 
 tree-view ul li .node div:first-child span {
     padding: .1475rem;
 }
 
-tree-view ul li .node div:first-child span.selected {
-    background: lightgrey;
+tree-view ul li .node div:first-child span .selected {
+    background: #D8ECF6;
 }
 
 tree-view tree-view {
