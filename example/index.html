@@ -14,20 +14,18 @@
 <hr />
 <p>
     Use buttons to interact with treeview<br />
-    <a class="btn btn-default" ng-click="toggleAll()">Toggle All in Second</a>
-    <a class="btn btn-default" ng-click="toggle()">Toggle Selected</a>
     <a class="btn btn-default" ng-click="select()">Select First</a>
     <a class="btn btn-default" ng-click="unselect()">Unselect Selected</a>
 </p>
 <br />
 <p>Selected node<br />
-    {{ selectedNode }}</p><br />
+    {{ myService.selectedNode }}</p><br />
 
 <script type="text/ng-template" id="my/url/to/a/template.html">
     <div class="pull-right">{{ node.name }}</div>
 </script>
 
-<tree-view ng-model="myData" node-label="name" item-class="pull-left" item-ng-include="my/url/to/a/template.html"></tree-view>
+<tree-view tree-service="myService" node-label="name" item-class="pull-left" item-ng-include="my/url/to/a/template.html"></tree-view>
 </body>
 
 </html>

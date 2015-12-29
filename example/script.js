@@ -2,7 +2,10 @@ var app = angular.module('app', ['ui.bootstrap', 'ui.bootstrap.treeview']);
 
 app.controller('MyController', ['$scope', 'TreeViewService', function($scope, TreeViewService) {
 
-    $scope.myData = [
+    var service = new TreeViewService;
+
+    $scope.myService = service;
+    $scope.myService.nodes = [
         {
             id: 1,
             name: 'first',
@@ -27,25 +30,11 @@ app.controller('MyController', ['$scope', 'TreeViewService', function($scope, Tr
         }
     ];
 
-    $scope.$watch(function() {
-        return TreeViewService.selectedNode;
-    }, function() {
-        $scope.selectedNode = TreeViewService.selectedNode;
-    });
-
-    $scope.toggleAll = function() {
-        TreeViewService.toggleAll($scope.myData[1]);
-    };
-
-    $scope.toggle = function() {
-        TreeViewService.toggleNode(TreeViewService.selectedNode);
-    };
-
     $scope.select = function() {
-        TreeViewService.selectNode($scope.myData[0]);
+        service.selectedNode = service.nodes[0];
     };
 
     $scope.unselect = function() {
-        TreeViewService.unselectNode();
+        service.selectedNode = undefined;
     }
 }]);
