@@ -59,17 +59,17 @@
             // template
             var template =
                 '<ul>' +
-                '<li ng-repeat="node in [REPLACENODES]">' +
-                '<div class="node" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}">' +
-                '<div ng-click="ctrl.selectNode($event, node)" ' + (itemClass != '' ? ' class="' + itemClass + '"' : '') + '>' +
-                '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!ctrl.isCollapsed(node) ? \'has-child\' : \'has-child-open\'"></i>' +
-                '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
-                '<span ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}"></span>' +
-                '</div>' +
-                itemIncludeHtml +
-                '</div>' +
-                '<tree-view uib-collapse="!ctrl.isCollapsed(node)" tree-service="ctrl.treeService" node-children="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
-                '</li>' +
+                    '<li ng-repeat="node in [REPLACENODES]">' +
+                        '<div ng-click="ctrl.selectNode($event, node)" class="node" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}">' +
+                            '<div ' + (itemClass != '' ? ' class="' + itemClass + '"' : '') + '>' +
+                                '<i ng-click="ctrl.toggleNode(node)" ng-show="node.children && node.children.length > 0" ng-class="!ctrl.isCollapsed(node) ? \'has-child\' : \'has-child-open\'"></i>' +
+                                '<i ng-click="ctrl.toggleNode(node)" class="no-child" ng-show="!node.children || node.children.length == 0"></i>' +
+                                '<span ng-bind="node.' + nodeLabel + '" ng-class="{\'selected\' : node == ctrl.treeService.selectedNode}"></span>' +
+                            '</div>' +
+                        itemIncludeHtml +
+                        '</div>' +
+                        '<tree-view uib-collapse="!ctrl.isCollapsed(node)" tree-service="ctrl.treeService" node-children="node.children" tree-root="false" node-label="' + nodeLabel + '" item-ng-include="' + itemInclude + '" item-class="' + itemClass + '"></tree-view>' +
+                    '</li>' +
                 '</ul>';
 
             if (!isRoot) {
