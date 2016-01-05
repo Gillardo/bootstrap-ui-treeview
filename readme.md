@@ -52,6 +52,9 @@ The node that is currently selected
 #### collapsed
 This is an array of all the nodes that are current collapsed
 
+#### collapseTo (node)
+Function to expand all parent nodes in a branch until the selectedNode is found
+
 ## Css
 In order for you to add styles to the tree-view, each tree-view is created with a className of tree-view.  You can override any styling you want, by creating your own css.
 
