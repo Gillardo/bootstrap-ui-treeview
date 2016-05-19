@@ -29,6 +29,8 @@ You have the following properties available to use with the directive.  All are 
 * nodeLabel - (string)
 * itemClass - (string)
 * itemNgInclude (string)
+* emptyMessage (string)
+* emptyClass (string)
  
 ##### nodeLabel
 The name of the property that you want to display for each item
