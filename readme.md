@@ -2,7 +2,7 @@
 
 AngularJs directive to show a treeview like structure of an item. Uses the bootstrap-UI collapse directive for a nice sliding animation.  This treeView has now been updated to NOT change the data in the treeView.  Some other tree view directives add different properties to the data to show the expanded/selected nodes, but this treeview will leave your data alone and uses a service to determine when a node is collapsed/selected.
 
-[Demo](http://plnkr.co/edit/n3KejGp2eAGc1S4VKoAK?p=preview)
+[Demo](http://plnkr.co/edit/4M9AsK5eJVRI5BCkfA7h?p=preview)
 
 ## Installation
 To use the directive you must have the following angular-ui bootstrap directives included already
